@@ -12,12 +12,20 @@ type Category {
     quantity: Int
     price: Float
     category: Category
+    orders: [Order]
   }
 
   type Order {
     _id: ID
     purchaseDate: String
     products: [Product]
+  }
+
+  type OrderItem {
+    _id: ID
+    order: Order
+    product: Product
+    quantity: Int
   }
 
   type User {
