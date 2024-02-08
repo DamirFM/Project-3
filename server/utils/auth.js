@@ -9,7 +9,8 @@ module.exports = {
     extensions: {
       code: 'UNAUTHENTICATED',
     },
-  }),
+  }), 
+  // authMiddleware function for decryption token
   authMiddleware: function ({ req }) {
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
@@ -32,6 +33,7 @@ module.exports = {
 
     return req;
   },
+  // signToken  function for encryption token
   signToken: function ({ firstName, email, _id }) {
     const payload = { firstName, email, _id };
 
