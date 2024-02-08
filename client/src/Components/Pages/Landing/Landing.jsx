@@ -82,7 +82,14 @@ function Landing() {
 
   return (
     <Flex height="100vh" alignItems="center" justifyContent="center" bg={bgColor}>
-      <Flex direction={{ base: 'column', md: 'row' }} width="full" maxW="4xl" px={4} bg={bgColor}>
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        width="full"
+        maxW="1440px" // Adjusted for wider screens
+        px={4}
+        bg={bgColor}
+        margin="auto" // Center the content
+      >
         {/* Splash Image */}
         <Flex flex={1}>
           <Image
@@ -93,7 +100,7 @@ function Landing() {
           />
         </Flex>
         {/* Welcome Message and Tabs for Login/Signup Area */}
-        <Flex flex={1} alignItems="start" flexDirection="column" justifyContent="center" p={5}>
+        <Flex flex={1} alignItems="start" flexDirection="column" justifyContent="center" p={5} minH="600px">
           <Heading as="h1" size="xl" color={textColor} mb={4}>
             Welcome to Our Application
           </Heading>
