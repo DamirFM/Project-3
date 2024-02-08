@@ -7,19 +7,13 @@ import Checkout from "./Components/Pages/Checkout/Checkout"
 import Landing from "./Components/Pages/Landing/Landing"
 import Profile from "./Components/Pages/Profile/Profile"
 import Store from "./Components/Pages/Store/Store"
+import Header from "./Components/Header/Header"
+
 
 function App() {
   return (
     <Router>
-      <nav>
-        {/* Navigation Links */}
-        <Link to="/">Landing</Link> |{" "}
-        <Link to="/home">Home</Link> |{" "}
-        <Link to="/about">About</Link> |{" "}
-        <Link to="/checkout">Checkout</Link> |{" "}
-        <Link to="/profile">Profile</Link> |{" "}
-        <Link to="/store">Store</Link>
-      </nav>
+      <Header />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
@@ -29,6 +23,7 @@ function App() {
         <Route path="/store" element={<Store />} />
         {/* Redirect all other paths to Landing or a 404 Not Found component */}
       </Routes>
+   
     </Router>
   );
 }
