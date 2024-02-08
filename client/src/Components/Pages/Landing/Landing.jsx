@@ -9,10 +9,15 @@ import {
   VStack,
   Input,
   useColorModeValue,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from '@chakra-ui/react';
 
 function Landing() {
-  const bgColor = useColorModeValue('gray.50', 'gray.800');
+  const bgColor = useColorModeValue('brand.100', 'brand.900');
   const textColor = useColorModeValue('gray.800', 'gray.50');
 
   return (
@@ -27,17 +32,34 @@ function Landing() {
             objectFit="cover"
           />
         </Flex>
-        {/* Welcome Message and Login Area */}
+        {/* Welcome Message and Tabs for Login/Signup Area */}
         <Flex flex={1} alignItems="start" flexDirection="column" justifyContent="center" p={5}>
-          <VStack spacing={4} align="flex-start">
-            <Heading as="h1" size="xl" color={textColor}>
-              Welcome to Our Application
-            </Heading>
-            <Text fontSize="lg" color={textColor}>Sign in to continue</Text>
-            <Input placeholder="Email" />
-            <Input placeholder="Password" type="password" />
-            <Button colorScheme="blue" width="full">Login</Button>
-          </VStack>
+          <Heading as="h1" size="xl" color={textColor} mb={4}>
+            Welcome to Our Application
+          </Heading>
+          <Tabs variant="soft-rounded" colorScheme="blue">
+            <TabList mb="1em">
+              <Tab>Login</Tab>
+              <Tab>Signup</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <VStack spacing={4} align="flex-start">
+                  <Input placeholder="Email" />
+                  <Input placeholder="Password" type="password" />
+                  <Button colorScheme="blue" width="full">Login</Button>
+                </VStack>
+              </TabPanel>
+              <TabPanel>
+                <VStack spacing={4} align="flex-start">
+                  <Input placeholder="Username" />
+                  <Input placeholder="Email Address" />
+                  <Input placeholder="Password" type="password" />
+                  <Button colorScheme="blue" width="full">Signup</Button>
+                </VStack>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </Flex>
       </Flex>
     </Flex>
