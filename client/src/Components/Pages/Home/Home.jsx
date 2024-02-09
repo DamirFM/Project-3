@@ -20,13 +20,14 @@ const HomePage = () => {
 
   const buttonBgColor = useColorModeValue('blue.500', 'blue.200');
   const buttonTextColor = useColorModeValue('white', 'gray.800');
-  const bgColor = useColorModeValue('brand.100', 'brand.900');
+  const bgColor = useColorModeValue('gray.100', 'gray.900');
   const textColor = useColorModeValue('gray.800', 'gray.50');
+  const titleColor = useColorModeValue('orange.500', 'orange.400')
 
   return (
     <Box maxW="1440px" mx="auto" py={5} bg={bgColor}>
     <Container maxW="1440px" py={5}> {/* Adjusted for wider screens */}
-      <Heading as="h2" mb={5}>Featured Products</Heading>
+      <Heading as="h2" mb={5} fontFamily="'Protest Revolution', sans-serif" color={titleColor} >Featured Products</Heading>
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={20}>
         {products.map(product => (
           <ProductCard key={product.id} {...product} />

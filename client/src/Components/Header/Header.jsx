@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 import ColorModeSwitcher from '../Header/ColorModeSwitcher';
 
 function Header() {
-  const bgColor = useColorModeValue('header.100', 'header.900');
-  const textColor = useColorModeValue('gray.800', 'gray.100');
+  const bgColor = useColorModeValue('gray.800', 'orange.600');
+  const textColor = useColorModeValue('gray.50', 'gray.100');
 
   return (
     <Box maxW="1440px" mx="auto" width="100%" bg={bgColor} px={5}>
@@ -23,48 +23,48 @@ function Header() {
               as={Link}
               to="/"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Landing
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/home"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Home
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/about"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               About
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/checkout"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Checkout
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/profile"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Profile
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/store"
               color={textColor}
-              fontFamily="'Roboto Condensed', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.500' }}>
+              fontFamily="'Oswald', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Store
             </ChakraLink>
           </Stack>

@@ -3,9 +3,10 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
-
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const Product = require('./models/Product'); 
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -14,12 +15,24 @@ const server = new ApolloServer({
   resolvers,
 });
 
-// Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
   await server.start();
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+
+  app.use(cors());
+
+  // New route for fetching products
+  app.get('/api/products', async (req, res) => {
+    try {
+      const products = await Product.find({});
+      res.json(products);
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+      res.status(500).json({ message: 'Failed to fetch products' });
+    }
+  });
 
   // Serve up static assets
   app.use('/images', express.static(path.join(__dirname, '../client/public/images')));
@@ -44,5 +57,4 @@ const startApolloServer = async () => {
   });
 };
 
-// Call the async function to start the server
 startApolloServer();
