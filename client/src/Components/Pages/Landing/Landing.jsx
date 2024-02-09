@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Auth from '../../../utils/auth';
+
 import {
   Flex,
   Heading,
@@ -53,7 +54,16 @@ function Landing() {
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
+
+      if (err.message.includes('E11000 duplicate key error')) {
+        // Handle duplicate key error (email already exists)
+        setShowAlert(true);
+      } else {
+        // Handle other errors
+      }
+
       setShowAlert(true);
+
     }
   };
 
@@ -97,6 +107,7 @@ function Landing() {
                   <Button colorScheme="orange" width="full" onClick={handleLoginSubmit}>Login</Button>
                 </VStack>
               </TabPanel>
+
               <TabPanel>
                 <VStack spacing={4} align="flex-start">
                   <Input placeholder="First Name" name="firstName" value={userFormData.firstName} onChange={handleInputChange} bg={inputColor}/>
