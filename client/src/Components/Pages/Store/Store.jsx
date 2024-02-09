@@ -16,7 +16,7 @@ const categories = [
   { _id: "65c26d9303c196854fd60ec4", name: "Accessories" },
 ];
 
-const StorePage = () => {
+const Store = () => {
   const inputColor = useColorModeValue('gray.50', 'gray.600');
   const drawerColor = useColorModeValue('gray.100', 'gray.800');
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -142,4 +142,4 @@ const StorePage = () => {
   );
 };
 
-export default StorePage;
+export default Store;
