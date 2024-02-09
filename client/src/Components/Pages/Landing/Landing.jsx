@@ -127,30 +127,6 @@ function Landing() {
                 </VStack>
               </TabPanel>
               <TabPanel>
-                <VStack spacing={3} align="flex-start">
-                  <Input placeholder="Username" bg={inputColor}/>
-                  <Input placeholder="Email Address" bg={inputColor}/>
-                  <Input placeholder="Password" type="password" bg={inputColor}/>
-                  <Button colorScheme="orange" width="full">Signup</Button>
-
-                <VStack spacing={4} align="flex-start">
-                  <Input
-                    placeholder="Email"
-                    name="email"
-                    value={userFormData.email}
-                    onChange={handleInputChange}
-                  />
-                  <Input
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    value={userFormData.password}
-                    onChange={handleInputChange}
-                  />
-                  <Button colorScheme="blue" width="full" onClick={handleLoginSubmit}>Login</Button>
-                </VStack>
-              </TabPanel>
-              <TabPanel>
                 <VStack spacing={4} align="flex-start">
                   <Input
                     placeholder="First Name"
@@ -198,6 +174,7 @@ function Landing() {
       </Flex>
     </Flex>
   );
+
 }
 
 export default Landing;
