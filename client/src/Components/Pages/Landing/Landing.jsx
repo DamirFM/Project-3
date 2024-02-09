@@ -54,7 +54,7 @@ function Landing() {
       const { data } = await Login({ variables: { email: userFormData.email, password: userFormData.password } });
 
       Auth.login(data.login.token);
-      setTimeout(history, 0, "/profile");
+      // setTimeout(history, 0, "/profile");
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -73,7 +73,7 @@ function Landing() {
       // Implement signup functionality 
       const { data } = await AddUser({ variables: { email: userFormData.email, password: userFormData.password, firstName: userFormData.firstName, lastName: userFormData.lastName } });
       Auth.login(data.addUser.token);
-      setTimeout(history, 0, "/profile");
+      // setTimeout(history, 0, "/profile");
     } catch (err) {
       console.error(err);
       if (err.message.includes('E11000 duplicate key error')) {
