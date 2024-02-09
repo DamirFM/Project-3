@@ -13,11 +13,18 @@ const customTheme = extendTheme({
     },
     card: {
       100: "#87C4FF"
-    }
+    },
   },
   config: {
     initialColorMode: 'light',
     useSystemColorMode: false,
+  },
+  styles: {
+    global: {
+      body: {
+        transition: 'background-color 0.5s ease-out, color 0.5s ease-out',
+      },
+    },
   },
 });
 
