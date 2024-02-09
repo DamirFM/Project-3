@@ -1,41 +1,56 @@
 import React from 'react';
-import { Box, Flex, Text, Heading, VStack, Divider } from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
+import AuthService from '../../../utils/auth'; // Adjust the import path as needed
+import { GET_USER_PROFILE } from '../../../utils/queries';
+import {
+  Box, Flex, Text, Heading, VStack, useColorModeValue
+} from '@chakra-ui/react';
 
-// Mocked user data for illustration. Replace this with your user data fetched from the database
-const userData = {
-  firstName: 'Kanye',
-  lastName: 'West',
-  email: 'kanye@west.com',
-  // Password should not be displayed or fetched to the client for security reasons
-  orders: [
-    // Assuming orders have some basic information you might want to display
-    { id: 1, itemName: 'Product 1', quantity: 2, status: 'Delivered' },
-    { id: 2, itemName: 'Product 2', quantity: 1, status: 'Shipped' },
-  ],
-};
+const ProfilePage = () => {
+  const { data, loading, error } = useQuery(GET_USER_PROFILE);
+  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const boxBgColor = useColorModeValue('white', 'gray.800');
 
-const Profile = () => {
+  // Decode the JWT to get the user profile
+  const profileFromToken = AuthService.getProfile();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :</p>;
+
+  const user = data.user;
+console.log(data)
   return (
-    <Box maxW="1440px" mx="auto" p={5}>
-      <VStack spacing={4} align="flex-start">
-        <Heading>Profile</Heading>
-        <Text><strong>First Name:</strong> {userData.firstName}</Text>
-        <Text><strong>Last Name:</strong> {userData.lastName}</Text>
-        <Text><strong>Email:</strong> {userData.email}</Text>
+    <Flex direction="column" align="center" p={5}>
+      {/* Box for JWT-based User Info */}
+      <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
+        <Heading size="lg" mb={2}>User Information (From Token)</Heading>
+        <Text><strong>Name:</strong> {profileFromToken.firstName} {profileFromToken.lastName}</Text>
+        <Text><strong>Email:</strong> {profileFromToken.email}</Text>
+      </Box>
 
-        <Divider />
+      {/* Box for GraphQL-based User Info */}
+      <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
+        <Heading size="lg" mb={2}>User Information (From GraphQL)</Heading>
+        <Text><strong>Name:</strong> {user.firstName} {user.lastName}</Text>
+        <Text><strong>Email:</strong> {user.email}</Text>
+      </Box>
 
-        <Heading size="md">Orders</Heading>
-        {userData.orders.map((order) => (
-          <Box key={order.id} p={2}>
-            <Text><strong>Item Name:</strong> {order.itemName}</Text>
-            <Text><strong>Quantity:</strong> {order.quantity}</Text>
-            <Text><strong>Status:</strong> {order.status}</Text>
-          </Box>
+      {/* Orders Box */}
+      <Box w="full" bg={boxBgColor} p={5} borderRadius="lg">
+        <Heading size="lg" mb={2}>Orders</Heading>
+        {user.orders.map(order => (
+          <VStack key={order._id} align="start" mb={4}>
+            <Text><strong>Order ID:</strong> {order._id}</Text>
+            <Text><strong>Purchase Date:</strong> {new Date(order.purchaseDate).toLocaleDateString()}</Text>
+            <Text><strong>Products:</strong></Text>
+            {order.products.map(product => (
+              <Text key={product._id} pl={4}>- {product.name}</Text>
+            ))}
+          </VStack>
         ))}
-      </VStack>
-    </Box>
+      </Box>
+    </Flex>
   );
 };
 
-export default Profile;
+export default ProfilePage;

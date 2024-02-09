@@ -18,6 +18,9 @@ import Profile from "./Components/Pages/Profile/Profile"
 import Store from "./Components/Pages/Store/Store"
 import Header from "./Components/Header/Header"
 
+
+
+
 // Construct our main GraphQL API endpoint
 // Calling the SandBox for CRUD operations
 const httpLink = createHttpLink({
