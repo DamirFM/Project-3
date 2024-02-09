@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import Auth from '../../../utils/auth';
+import { useNavigate } from 'react-router-dom';
+
+
+
 import {
   Flex,
   Heading,
@@ -21,6 +25,7 @@ import { useMutation } from '@apollo/client'
 // Import Auth if defined elsewhere in your codebase
 
 function Landing() {
+  const history = useNavigate(); 
   const bgColor = useColorModeValue('brand.100', 'brand.900');
   const textColor = useColorModeValue('gray.800', 'gray.50');
 
@@ -49,6 +54,7 @@ function Landing() {
       const { data } = await Login({ variables: { email: userFormData.email, password: userFormData.password } });
 
       Auth.login(data.login.token);
+      setTimeout(history, 0, "/profile");
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -67,6 +73,7 @@ function Landing() {
       // Implement signup functionality 
       const { data } = await AddUser({ variables: { email: userFormData.email, password: userFormData.password, firstName: userFormData.firstName, lastName: userFormData.lastName } });
       Auth.login(data.addUser.token);
+      setTimeout(history, 0, "/profile");
     } catch (err) {
       console.error(err);
       if (err.message.includes('E11000 duplicate key error')) {
@@ -74,7 +81,6 @@ function Landing() {
         setShowAlert(true);
       } else {
         // Handle other errors
-        // Display a generic error message or handle the error appropriately
       }
     }
   };
