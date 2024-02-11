@@ -36,7 +36,7 @@ const CartComponent = () => {
       <Button colorScheme="orange" position="relative" onClick={() => setIsCartOpen(true)}>
         <Icon as={FaShoppingCart} />
         {cartItems.length > 0 && (
-          <Badge colorScheme="red" ml="1" position="absolute" top="-1" right="-1" borderRadius="full">
+          <Badge colorScheme="blue.900" ml="1" position="absolute" top="-1" right="-1" borderRadius="full">
             {cartItems.length}
           </Badge>
         )}

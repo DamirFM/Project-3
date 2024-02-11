@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Box, Button, Flex, FormControl, FormLabel, Input, useToast, VStack, Heading, Text, Divider
 } from '@chakra-ui/react';
-import { useCart } from '../../../Context/CartContext'; // Update the import path as needed
-
+import { useCart } from '../../../Context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../../../../utils/auth';
 
 const PaymentForm = () => {
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
   const [card, setCard] = useState(null);
-  const [isCardReady, setIsCardReady] = useState(false); // State to track the readiness of the card form
+  const [isCardReady, setIsCardReady] = useState(false);
+  const navigate = useNavigate();
+  const paymentFormInitialized = useRef(false);
+  const toast = useToast();
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const [shippingInfo, setShippingInfo] = useState({
     fullName: '',
     addressLine1: '',
@@ -17,10 +22,13 @@ const PaymentForm = () => {
     state: '',
     zipCode: '',
   });
-  const toast = useToast();
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   useEffect(() => {
+    if (paymentFormInitialized.current) {
+      // Payment form already initialized, prevent re-initialization
+      return;
+    }
+
     const initializePaymentForm = async () => {
       if (!window.Square) {
         console.error("Square SDK not loaded.");
@@ -39,7 +47,8 @@ const PaymentForm = () => {
         const cardInstance = await payments.card();
         await cardInstance.attach('#card-input');
         setCard(cardInstance);
-        setIsCardReady(true); 
+        setIsCardReady(true);
+        paymentFormInitialized.current = true; // Mark as initialized
       } catch (error) {
         console.error("Failed to initialize Square card input:", error);
         toast({
@@ -54,14 +63,14 @@ const PaymentForm = () => {
 
     initializePaymentForm();
 
-    // Cleanup function to prevent duplicate card fields
     return () => {
       if (card) {
         card.destroy();
-        setIsCardReady(false); // Reset card form readiness
+        setIsCardReady(false);
+        paymentFormInitialized.current = false; // Reset initialization flag
       }
     };
-  }, [toast]); // Removed card from dependency array to prevent re-initializing
+  }, [card, toast]); // Consider dependencies carefully; this setup aims for one-time initialization
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -83,15 +92,53 @@ const PaymentForm = () => {
     try {
       const result = await card.tokenize();
       if (result.status === 'OK') {
-        toast({
-          title: 'Payment Successful',
-          description: 'Your payment was processed successfully.',
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
+        // Assume you need to send the user ID, which you might need to retrieve from your app's state or context
+        const userProfile = AuthService.getProfile();
+        const userId = userProfile?._id; 
+
+        const productIds = cartItems.map(item => item._id); // Assuming each cartItem has an id
+        const productName = cartItems.map(item => item.name);
+        const productPrice = cartItems.map(item => item.price);
+
+        console.log(cartItems);
+        console.log({
+            userId,
+            products: productIds, productName, productPrice,
+          });
+
+        const orderResponse = await fetch('http://localhost:3001/api/orders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // Include the auth token in the request
+              'Authorization': `Bearer ${AuthService.getToken()}`
+            },
+            body: JSON.stringify({
+              userId,
+              products: productIds, productName, productPrice
+            
+          }),
         });
-        // Process the payment on your server using result.token
-        clearCart(); // Consider clearing the cart after successful payment
+        if (orderResponse.ok) {
+          clearCart();
+          toast({
+            title: 'Payment Successful',
+            description: 'Your payment was processed successfully.',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          });
+          navigate('/profile'); 
+        } else {
+          // Handle order creation failure
+          toast({
+            title: 'Order Creation Failed',
+            description: 'Failed to create order after payment.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          });
+        }
       } else {
         toast({
           title: 'Payment Failed',
