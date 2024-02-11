@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import AuthService from '../../../utils/auth'; // Adjust the import path as needed
+import AuthService from '../../../utils/auth';
 import { GET_USER_PROFILE } from '../../../utils/queries';
 import {
   Box, Flex, Text, Heading, VStack, useColorModeValue
@@ -21,17 +21,9 @@ const ProfilePage = () => {
 console.log(data)
   return (
     <Flex direction="column" align="center" p={5}>
-      {/* Box for JWT-based User Info */}
-      <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
-        <Heading size="lg" mb={2}>User Information (From Token)</Heading>
-        <Text><strong>Name:</strong> {profileFromToken.firstName} {profileFromToken.lastName}</Text>
-        <Text><strong>Email:</strong> {profileFromToken.email}</Text>
-      </Box>
-
       {/* Box for GraphQL-based User Info */}
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
-        <Heading size="lg" mb={2}>User Information (From GraphQL)</Heading>
-        <Text><strong>Name:</strong> {user.firstName} {user.lastName}</Text>
+        <Heading size="lg" mb={2}>{user.firstName}</Heading>
         <Text><strong>Email:</strong> {user.email}</Text>
       </Box>
 

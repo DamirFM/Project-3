@@ -17,6 +17,7 @@ import Landing from "./Components/Pages/Landing/Landing"
 import Profile from "./Components/Pages/Profile/Profile"
 import Store from "./Components/Pages/Store/Store"
 import Header from "./Components/Header/Header"
+import PaymentPage from './Components/Pages/Store/PaymentPage';
 
 
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/payment" element={<PaymentPage />} />
         {/* Redirect all other paths to Landing or a 404 Not Found component */}
       </Routes>
     </Router>

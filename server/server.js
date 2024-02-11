@@ -5,11 +5,21 @@ const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
-const Product = require('./models/Product'); 
+const Product = require('./models/Product');
 const cors = require('cors');
+const { Client, Environment } = require('square');
 
-const PORT = process.env.PORT || 3001;
+require('dotenv').config();
+
 const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Setup Square Client
+const squareClient = new Client({
+  environment: process.env.NODE_ENV === 'production' ? Environment.Production : Environment.Sandbox,
+  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+});
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -20,10 +30,11 @@ const startApolloServer = async () => {
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
-
   app.use(cors());
 
-  // New route for fetching products
+  // ROUTES 
+
+  // Route for fetching products
   app.get('/api/products', async (req, res) => {
     try {
       const products = await Product.find({});
@@ -33,6 +44,28 @@ const startApolloServer = async () => {
       res.status(500).json({ message: 'Failed to fetch products' });
     }
   });
+
+   // Route for processing Square payment
+   app.post('/api/process-payment', async (req, res) => {
+    const { sourceId, amount } = req.body; // Ensure you have `sourceId` and `amount` from the client
+    try {
+      const { result } = await squareClient.paymentsApi.createPayment({
+        sourceId: sourceId,
+        amountMoney: {
+          amount: amount,
+          currency: 'CAD',
+        },
+        locationId: process.env.SQUARE_LOCATION_ID,
+        idempotencyKey: crypto.randomUUID(), 
+      });
+
+      res.json(result);
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 
   // Serve up static assets
   app.use('/images', express.static(path.join(__dirname, '../client/public/images')));

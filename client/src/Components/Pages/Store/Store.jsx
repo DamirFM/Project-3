@@ -7,6 +7,7 @@ import {
   NumberIncrementStepper, NumberDecrementStepper, Text, Image
 } from '@chakra-ui/react';
 import StoreCard from './StoreCard';
+import { useCart } from '../../Context/CartContext';
 
 const categories = [
   { _id: "65c26d9303c196854fd60ec0", name: "Laptops" },
@@ -16,18 +17,20 @@ const categories = [
   { _id: "65c26d9303c196854fd60ec4", name: "Accessories" },
 ];
 
+
+
 const Store = () => {
   const inputColor = useColorModeValue('gray.50', 'gray.600');
   const drawerColor = useColorModeValue('gray.100', 'gray.800');
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const titleColor = useColorModeValue('gray.900', 'orange.500');
-  const modalBgColor = useColorModeValue('gray.700', 'orange.500'); 
-  const modalInput = useColorModeValue('gray.100', 'gray.700'); 
+  const modalBgColor = useColorModeValue('gray.700', 'orange.500');
+  const modalInput = useColorModeValue('gray.100', 'gray.700');
   const modalTitle = useColorModeValue('gray.100', 'gray.800')
 
   const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
   const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   const [currentCategoryId, setCurrentCategoryId] = useState(null);
@@ -35,6 +38,8 @@ const Store = () => {
   const [quantity, setQuantity] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -82,7 +87,7 @@ const Store = () => {
               <VStack align="start">
                 {categories.map((category) => (
                   <Button key={category._id} variant="ghost"
-                          onClick={() => { setCurrentCategoryId(category._id); onDrawerClose(); }}>
+                    onClick={() => { setCurrentCategoryId(category._id); onDrawerClose(); }}>
                     {category.name}
                   </Button>
                 ))}
@@ -130,7 +135,13 @@ const Store = () => {
               </NumberInput>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="orange" mr={3} onClick={() => console.log(`Add ${quantity} of ${selectedProduct.name} to cart`)}>
+              <Button
+                colorScheme="orange"
+                mr={3}
+                onClick={() => {
+                  addToCart(selectedProduct);
+                  onModalClose();
+                }}>
                 Add to Cart
               </Button>
               <Button variant="ghost" onClick={onModalClose}>Close</Button>
