@@ -5,15 +5,24 @@ import {
   Stack,
   useColorModeValue,
   Button,
+  useDisclosure,
+  Icon,
+  Text,
   Link as ChakraLink,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import ColorModeSwitcher from '../Header/ColorModeSwitcher';
 import AuthService from '../../utils/auth';
+import { useCart } from '../Context/CartContext';
+import { FaShoppingCart } from 'react-icons/fa';
+import CartComponent from '../Cart/CartComponent';
 
 function Header() {
   const bgColor = useColorModeValue('gray.800', 'orange.600');
   const textColor = useColorModeValue('gray.50', 'gray.100');
+  const { cartItems } = useCart();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+  
 
     // Check if user is logged in
     const isLoggedIn = AuthService.loggedIn();
@@ -21,6 +30,8 @@ function Header() {
     const handleLogout = () => {
       AuthService.logout(); // Log out the user
     };
+
+    
 
   return (
     <Box maxW="1440px" mx="auto" width="100%" bg={bgColor} px={5}>
@@ -78,18 +89,18 @@ function Header() {
             </ChakraLink>
           </Stack>
         </Box>
-        <Flex alignItems={'center'}>
-        {isLoggedIn && (
-            <Button
-              onClick={handleLogout}
-              colorScheme="orange"
-              mr={4}
-            >
-              Logout
-            </Button>
+        <Stack direction="row" spacing={4} align="center">
+          {isLoggedIn && (
+            <>
+              <Button onClick={handleLogout} colorScheme="orange">
+                Logout
+              </Button>
+              
+            </>
           )}
+           <CartComponent isOpen={isOpen} onClose={onClose} />
           <ColorModeSwitcher justifySelf="flex-end" />
-        </Flex>
+        </Stack>
       </Flex>
     </Box>
   );
