@@ -65,7 +65,7 @@ function Header() {
             </ChakraLink>
             <ChakraLink
               as={Link}
-              to="/checkout"
+              to="/payment"
               color={textColor}
               fontFamily="'Oswald', sans-serif"
               _hover={{ textDecoration: 'none', color: 'blue.200' }}>

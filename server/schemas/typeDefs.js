@@ -85,6 +85,19 @@ type Category {
     orders: [Order!]!
   }
 
+  query GetUserProfile {
+    user {
+      orders {
+        _id
+        purchaseDate
+        products {
+          _id
+          name
+        }
+      }
+    }
+  }
+
 `;
 
 module.exports = typeDefs;
