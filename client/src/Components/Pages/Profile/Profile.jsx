@@ -1,32 +1,27 @@
-// Import necessary dependencies
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import AuthService from '../../../utils/auth';
 import { GET_USER_PROFILE } from '../../../utils/queries';
 import {
-  Box, Flex, Spinner, Alert, AlertIcon, useColorModeValue
+  Box, Flex, Text, Heading, useColorModeValue
 } from '@chakra-ui/react';
-import OrderComponent from './OrderComponent'; // Ensure this path is correct
+import OrderComponent from './OrderComponent'; // Adjust the import path as necessary
 
 const ProfilePage = () => {
   const { data, loading, error } = useQuery(GET_USER_PROFILE);
   const boxBgColor = useColorModeValue('white', 'gray.800');
 
-  if (loading) return <Flex justify="center"><Spinner /></Flex>;
-  if (error) return (
-    <Alert status="error">
-      <AlertIcon />
-      There was an error processing your request: {error.message}
-    </Alert>
-  );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-  const user = data?.user || {};
-
+  const user = data?.user || { orders: [] };
+console.log(user);
   return (
     <Flex direction="column" align="center" p={5}>
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
-        {/* Display user information */}
+        <Heading size="lg" fontSize="6xl" color="orange.500" fontFamily="'Protest Revolution', sans-serif" mb={2}>{user.firstName}</Heading>
+        <Text><strong>Email:</strong> {user.email}</Text>
       </Box>
-
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg">
         {/* Assuming you have a heading for orders */}
         {user.orders && user.orders.length > 0 ? user.orders.map((order) => (

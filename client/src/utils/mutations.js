@@ -17,7 +17,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_ORDER = gql`
-  mutation AddOrder($products: ProductInput) {
+  mutation AddOrder($products: [ID] ) {
     addOrder(products: $products) {
       _id
       purchaseDate
