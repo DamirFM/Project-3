@@ -21,17 +21,14 @@ function Header() {
   const bgColor = useColorModeValue('gray.800', 'orange.600');
   const textColor = useColorModeValue('gray.50', 'gray.100');
   const { cartItems } = useCart();
-    const { isOpen, onOpen, onClose } = useDisclosure();
-  
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Check if user is logged in
-    const isLoggedIn = AuthService.loggedIn();
+  // Check if user is logged in
+  const isLoggedIn = AuthService.loggedIn();
 
-    const handleLogout = () => {
-      AuthService.logout(); // Log out the user
-    };
-
-    
+  const handleLogout = () => {
+    AuthService.logout(); // Log out the user
+  };
 
   return (
     <Box maxW="1440px" mx="auto" width="100%" bg={bgColor} px={5}>
@@ -45,7 +42,7 @@ function Header() {
               color={textColor}
               fontFamily="'Oswald', sans-serif"
               _hover={{ textDecoration: 'none', color: 'blue.200' }}>
-              Landing
+              Home
             </ChakraLink>
             <ChakraLink
               as={Link}
@@ -53,7 +50,7 @@ function Header() {
               color={textColor}
               fontFamily="'Oswald', sans-serif"
               _hover={{ textDecoration: 'none', color: 'blue.200' }}>
-              Home
+              Featured
             </ChakraLink>
             <ChakraLink
               as={Link}
@@ -71,14 +68,16 @@ function Header() {
               _hover={{ textDecoration: 'none', color: 'blue.200' }}>
               Checkout
             </ChakraLink>
-            <ChakraLink
-              as={Link}
-              to="/profile"
-              color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
-              Profile
-            </ChakraLink>
+            {isLoggedIn && ( // Render "Profile" link only if logged in
+              <ChakraLink
+                as={Link}
+                to="/profile"
+                color={textColor}
+                fontFamily="'Oswald', sans-serif"
+                _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+                Profile
+              </ChakraLink>
+            )}
             <ChakraLink
               as={Link}
               to="/store"
@@ -95,10 +94,9 @@ function Header() {
               <Button onClick={handleLogout} colorScheme="orange">
                 Logout
               </Button>
-              
             </>
           )}
-           <CartComponent isOpen={isOpen} onClose={onClose} />
+          <CartComponent isOpen={isOpen} onClose={onClose} />
           <ColorModeSwitcher justifySelf="flex-end" />
         </Stack>
       </Flex>
