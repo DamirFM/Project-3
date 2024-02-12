@@ -7,15 +7,15 @@ import {
   Heading,
   useColorModeValue,
 } from '@chakra-ui/react';
-import ProductCard from '../Store/ProductCard'; // Ensure this path is correct
+import ProductCard from '../Store/ProductCard'; 
 
 const HomePage = () => {
   const products = [
-    { id: 1, name: 'Product 1', description: 'A great product', price: '19.99', imageUrl: 'http://placekitten.com/200/300' },
-    { id: 2, name: 'Product 2', description: 'Another great product', price: '29.99', imageUrl: 'http://placekitten.com/200/300' },
-    { id: 3, name: 'Product 3', description: 'Another one', price: '39.99', imageUrl: 'http://placekitten.com/200/300' },
-    { id: 4, name: 'Product 4', description: 'Keyboard', price: '49.99', imageUrl: 'http://placekitten.com/200/300' },
-    // Add more products as needed
+    { id: 1, name: 'Logitech Wireless Gaming Mouse', description: 'Logitech G502 LIGHTSPEED Wireless Gaming Mouse, 5,600 DPI, 11 Programmable Buttons', price: '149.99', imageUrl: 'https://m.media-amazon.com/images/I/718b9wK3eaL._AC_UL320_.jpg' },
+    { id: 2, name: 'IPhone 12 Blue 64GB', description: 'iPhone 12: 6.1-inch Super Retina XDR display, A14 Bionic chip, dual-camera system with Night mode and Deep Fusion', price: '599.99', imageUrl: 'https://m.media-amazon.com/images/I/61pz7VA6KoL._AC_UL320_.jpg' },
+    { id: 3, name: 'Sony Wireless Headphones', description: 'Sony WH-1000XM5 WirelessNoise Cancelling Headphones with Auto Noise Cancelling Optimizer, Hands-Free Calling', price: '439.99', imageUrl: 'https://m.media-amazon.com/images/I/61aT4CcnGmL._AC_UL320_.jpg' },
+    { id: 4, name: 'Seagate External Hard Drive 2TB', description: 'Seagate Portable 2TB External Hard Drive Portable HDD – USB 3.0 for PC, Mac, PS4, & Xbox', price: '99.99', imageUrl: 'https://m.media-amazon.com/images/I/41UY0i5ygQL._AC_UL320_.jpg' },
+   
   ];
 
   const buttonBgColor = useColorModeValue('blue.500', 'blue.200');
@@ -26,7 +26,7 @@ const HomePage = () => {
 
   return (
     <Box maxW="1440px" mx="auto" py={5} bg={bgColor}>
-    <Container maxW="1440px" py={5}> {/* Adjusted for wider screens */}
+    <Container maxW="1440px" py={5}>
       <Heading as="h2" mb={5} fontFamily="'Protest Revolution', sans-serif" color={titleColor} >Featured Products</Heading>
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={20}>
         {products.map(product => (
