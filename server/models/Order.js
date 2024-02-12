@@ -5,14 +5,16 @@ const { Schema } = mongoose;
 const orderSchema = new Schema({
   purchaseDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  products: [
-    {
+  products: [{
+    productId: {
       type: Schema.Types.ObjectId,
-      ref: 'Product'
-    }
-  ]
+      ref: 'Product', 
+    },
+    name: String, 
+    price: Number, 
+  }],
 });
 
 const Order = mongoose.model('Order', orderSchema);

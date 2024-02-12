@@ -87,6 +87,7 @@ type Category {
 
   query GetUserProfile {
     user {
+      
       orders {
         _id
         purchaseDate

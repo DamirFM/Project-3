@@ -129,30 +129,33 @@ app.get('/api/orders/:id', async (req, res) => {
 
 // POST new order
 app.post('/api/orders', async (req, res) => {
-  console.log(req.body);
-  const { userId, products } = req.body; // Extracting userId and product IDs from the request body
+  console.log(req.body); 
+  const { userId, products, productName, productPrice } = req.body;
 
-  if (!userId || !products || products.length === 0) {
-    return res.status(400).json({ message: 'Missing required fields: userId and products' });
+  if (!userId || !products || products.length === 0 || !productName || !productPrice || productName.length !== products.length || productPrice.length !== products.length) {
+    return res.status(400).json({ message: 'Missing or inconsistent required fields.' });
   }
 
+  const productDetails = products.map((productId, index) => ({
+    productId,
+    name: productName[index],
+    price: productPrice[index],
+  }));
+
   try {
-    // Create a new order
     const newOrder = new Order({
       user: userId,
-      products: products,
+      products: productDetails,
     });
-    const order = await newOrder.save();
-
-    // Optionally, update user's orders
-    await User.findByIdAndUpdate(userId, { $push: { orders: order._id } }, { new: true });
-
-    res.status(201).json(order);
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ message: "Error creating order", error: error.message });
   }
 });
+
+
 
 
   // GET  Route for fetching orders
