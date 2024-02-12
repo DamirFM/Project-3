@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 const ProductCard = ({ name, description, price, imageUrl }) => {
-  const bgColor = useColorModeValue('gray.400', 'gray.700');
+  const bgColor = useColorModeValue('orange.500', 'gray.700');
   const textColor = useColorModeValue('gray.800', 'gray.100');
 
   return (

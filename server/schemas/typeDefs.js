@@ -73,6 +73,31 @@ type Category {
     login(email: String!, password: String!): Auth
   }
 
+  type Query {
+    me: User
+  }
+
+  type User {
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    orders: [Order!]!
+  }
+
+  query GetUserProfile {
+    user {
+      orders {
+        _id
+        purchaseDate
+        products {
+          _id
+          name
+        }
+      }
+    }
+  }
+
 `;
 
 module.exports = typeDefs;
