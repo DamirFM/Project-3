@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, VStack, useColorModeValue } from '@chakra-ui/react';
 
 const OrderComponent = ({ order }) => {
+  console.log(order)
   const formattedDate = new Date(parseInt(order.purchaseDate)).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'
   });
