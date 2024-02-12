@@ -19,7 +19,7 @@ const ProfilePage = () => {
   return (
     <Flex direction="column" align="center" p={5}>
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
-        <Heading size="lg" mb={2}>{user.firstName}</Heading>
+        <Heading size="lg" fontSize="6xl" color="orange.500" fontFamily="'Protest Revolution', sans-serif" mb={2}>{user.firstName}</Heading>
         <Text><strong>Email:</strong> {user.email}</Text>
       </Box>
 
