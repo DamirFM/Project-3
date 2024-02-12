@@ -77,7 +77,7 @@ function Landing() {
           />
         </Flex>
         <Flex flex={1} alignItems="start" flexDirection="column" justifyContent="center" p={5} minH="600px">
-          <Heading as="h1" size="xl" color={titleColor} mb={4} fontFamily="'Protest Revolution', sans-serif">
+          <Heading as="h1" size="xl" fontSize="6xl" color={titleColor} mb={4} fontFamily="'Protest Revolution', sans-serif">
             Welcome to Vulcan's <br/>Computer Emporium
           </Heading>
           {showAlert && (

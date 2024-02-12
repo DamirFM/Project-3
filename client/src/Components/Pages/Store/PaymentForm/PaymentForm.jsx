@@ -67,10 +67,10 @@ const PaymentForm = () => {
       if (card) {
         card.destroy();
         setIsCardReady(false);
-        paymentFormInitialized.current = false; // Reset initialization flag
+        paymentFormInitialized.current = false; 
       }
     };
-  }, [card, toast]); // Consider dependencies carefully; this setup aims for one-time initialization
+  }, [card, toast]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -92,11 +92,10 @@ const PaymentForm = () => {
     try {
       const result = await card.tokenize();
       if (result.status === 'OK') {
-        // Assume you need to send the user ID, which you might need to retrieve from your app's state or context
         const userProfile = AuthService.getProfile();
         const userId = userProfile?._id; 
 
-        const productIds = cartItems.map(item => item._id); // Assuming each cartItem has an id
+        const productIds = cartItems.map(item => item._id); 
         const productName = cartItems.map(item => item.name);
         const productPrice = cartItems.map(item => item.price);
 
@@ -192,7 +191,7 @@ const PaymentForm = () => {
   
    
           <FormControl id="card-container" marginBottom="4">
-            <FormLabel>Card Details</FormLabel>
+            <label>Card Details</label>
             <div id="card-input"></div>
           </FormControl>
         
