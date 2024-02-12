@@ -63,6 +63,28 @@ app.get('/api/users/:id', async (req, res) => {
   }
 });
 
+// PUT route for updating a user by ID
+app.put('/api/users/:id', async (req, res) => {
+  const { id } = req.params; // Extract the user ID from the URL parameters
+  const updateData = req.body; // Assuming the body contains the data to update
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, {
+      new: true, // Return the modified document rather than the original
+      runValidators: true, // Ensure the update obeys the schema's validation
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Error updating user', error: error.message });
+  }
+});
+
    // Route for processing Square payment
    app.post('/api/process-payment', async (req, res) => {
     const { sourceId, amount } = req.body; // Ensure you have `sourceId` and `amount` from the client
