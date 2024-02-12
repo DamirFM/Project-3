@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Auth from '../../../utils/auth';
-
 import {
   Flex,
   Heading,
@@ -30,6 +29,12 @@ function Landing() {
   const [showAlert, setShowAlert] = useState(false);
   const [login] = useMutation(LOGIN_USER);
   const [addUser] = useMutation(ADD_USER);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+
+  useEffect(() => {
+    // Check if user is logged in when component mounts
+    setIsLoggedIn(Auth.loggedIn());
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -41,6 +46,7 @@ function Landing() {
     try {
       const { data } = await login({ variables: { ...userFormData } });
       Auth.login(data.login.token);
+      setIsLoggedIn(true); // Update login status
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -52,6 +58,7 @@ function Landing() {
     try {
       const { data } = await addUser({ variables: { ...userFormData } });
       Auth.login(data.addUser.token);
+      setIsLoggedIn(true); // Update login status
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -80,35 +87,47 @@ function Landing() {
           <Heading as="h1" size="xl" fontSize="6xl" color={titleColor} mb={4} fontFamily="'Protest Revolution', sans-serif">
             Welcome to Vulcan's <br/>Computer Emporium
           </Heading>
+          {isLoggedIn && (
+            <Alert status="success" borderRadius="md" mt={4}>
+              You are logged in.
+            </Alert>
+          )}
+          {isLoggedIn && ( // Render "Shop Now!" button only if logged in
+            <Button colorScheme="orange" mt={4}>
+              <a href="/store" style={{ textDecoration: 'none', color: 'inherit' }}>Shop Now!</a>
+            </Button>
+          )}
           {showAlert && (
             <Alert status="error" borderRadius="md" mt={4}>
               Something went wrong with your signup or login!
             </Alert>
           )}
-          <Tabs variant="soft-rounded" colorScheme="orange">
-            <TabList mb="1em">
-              <Tab>Login</Tab>
-              <Tab>Signup</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <VStack spacing={4} align="flex-start">
-                  <Input placeholder="Email" name="email" value={userFormData.email} onChange={handleInputChange} bg={inputColor} />
-                  <Input placeholder="Password" type="password" name="password" value={userFormData.password} onChange={handleInputChange} bg={inputColor}/>
-                  <Button colorScheme="orange" width="full" onClick={handleLoginSubmit}>Login</Button>
-                </VStack>
-              </TabPanel>
-              <TabPanel>
-                <VStack spacing={4} align="flex-start">
-                  <Input placeholder="First Name" name="firstName" value={userFormData.firstName} onChange={handleInputChange} bg={inputColor}/>
-                  <Input placeholder="Last Name" name="lastName" value={userFormData.lastName} onChange={handleInputChange} bg={inputColor}/>
-                  <Input placeholder="Email Address" name="email" value={userFormData.email} onChange={handleInputChange} bg={inputColor}/>
-                  <Input placeholder="Password" type="password" name="password" value={userFormData.password} onChange={handleInputChange} bg={inputColor}/>
-                  <Button colorScheme="orange" width="full" onClick={handleSignupSubmit}>Signup</Button>
-                </VStack>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+          {!isLoggedIn && ( // Render login/signup forms only if user is not logged in
+            <Tabs variant="soft-rounded" colorScheme="orange">
+              <TabList mb="1em">
+                <Tab>Login</Tab>
+                <Tab>Signup</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <VStack spacing={4} align="flex-start">
+                    <Input placeholder="Email" name="email" value={userFormData.email} onChange={handleInputChange} bg={inputColor} />
+                    <Input placeholder="Password" type="password" name="password" value={userFormData.password} onChange={handleInputChange} bg={inputColor}/>
+                    <Button colorScheme="orange" width="full" onClick={handleLoginSubmit}>Login</Button>
+                  </VStack>
+                </TabPanel>
+                <TabPanel>
+                  <VStack spacing={4} align="flex-start">
+                    <Input placeholder="First Name" name="firstName" value={userFormData.firstName} onChange={handleInputChange} bg={inputColor}/>
+                    <Input placeholder="Last Name" name="lastName" value={userFormData.lastName} onChange={handleInputChange} bg={inputColor}/>
+                    <Input placeholder="Email Address" name="email" value={userFormData.email} onChange={handleInputChange} bg={inputColor}/>
+                    <Input placeholder="Password" type="password" name="password" value={userFormData.password} onChange={handleInputChange} bg={inputColor}/>
+                    <Button colorScheme="orange" width="full" onClick={handleSignupSubmit}>Signup</Button>
+                  </VStack>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          )}
         </Flex>
       </Flex>
     </Flex>
