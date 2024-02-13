@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  Box, Button, Flex, FormControl, FormLabel, Input, useToast, VStack, Heading, Text, Divider
-} from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Input, useToast, VStack, Heading, Text, Divider, useColorModeValue } from '@chakra-ui/react';
 import { useCart } from '../../../Context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../../../utils/auth';
@@ -24,6 +22,11 @@ const PaymentForm = () => {
   const toast = useToast();
   const [addOrder] = useMutation(ADD_ORDER);
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const bgColor = useColorModeValue('rgba(230,234,255, .3)', 'rgba(0.32,0.32,0.35, .3)');
+  const bgGradient = useColorModeValue(
+    'linear(to-b, facebook.400, orange.500)', 
+    'linear(to-b, black, orange.600)' 
+  );
   const [shippingInfo, setShippingInfo] = useState({
     fullName: '',
     addressLine1: '',
@@ -165,45 +168,47 @@ isClosable: true,
 
 
 
-  return (
-    <Flex direction={{ base: 'column', md: 'row' }} gap="20px">
-      <Box flex="1" bg="gray.700" color="white" p="4" borderRadius="md">
-        <Heading size="md" mb="4">Cart Summary</Heading>
-        <VStack divider={<Divider />} spacing={4}>
-          {cartItems.map((item, index) => (
-            <Flex key={index} justify="space-between" w="full">
-              <Text>{item.name}</Text>
-              <Text fontWeight="bold">${(item.price * item.quantity).toFixed(2)}</Text>
-            </Flex>
-          ))}
-          <Flex justify="space-between" w="full" pt="4" borderTop="1px" borderColor="gray.200">
-            <Text fontWeight="semibold">Subtotal</Text>
-            <Text fontWeight="semibold">${subtotal.toFixed(2)}</Text>
+return (
+  
+  <Flex direction={{ base: 'column', md: 'row' }} gap="20px" bgGradient={bgGradient}>
+    <Box flex="1" bg={bgColor} color="white" pt={10} px={4} pb={4} borderRadius="md" maxWidth="lg" mx="auto">
+      <Heading size="md" mb="4">Cart Summary</Heading>
+      <VStack divider={<Divider />} spacing={4}>
+        {cartItems.map((item, index) => (
+          <Flex key={index} justify="space-between" w="full">
+            <Text>{item.name}</Text>
+            <Text fontWeight="bold">${(item.price * item.quantity).toFixed(2)}</Text>
           </Flex>
-        </VStack>
-      </Box>
+        ))}
+        <Flex justify="space-between" w="full" pt="4" borderTop="1px" borderColor="gray.200">
+          <Text fontWeight="semibold">Subtotal</Text>
+          <Text fontWeight="semibold">${subtotal.toFixed(2)}</Text>
+        </Flex>
+      </VStack>
+    </Box>
+
+    <Box flex="1" bg={bgColor} pt={10} px={8} pb={5} borderRadius="md" boxShadow="sm" maxWidth="lg" mx="auto">
+      <Heading size="md" mb="4">Payment & Shipping</Heading>
+      <VStack spacing={4} align="stretch" mb="4">
+        <Input bg="transparent" placeholder="Full Name" name="fullName" value={shippingInfo.fullName} onChange={handleInputChange} />
+        <Input bg="transparent" placeholder="Address Line 1" name="addressLine1" value={shippingInfo.addressLine1} onChange={handleInputChange} />
+        <Input bg="transparent" placeholder="Address Line 2" name="addressLine2" value={shippingInfo.addressLine2} onChange={handleInputChange} />
+        <Input bg="transparent" placeholder="City" name="city" value={shippingInfo.city} onChange={handleInputChange} />
+        <Input bg="transparent" placeholder="State" name="state" value={shippingInfo.state} onChange={handleInputChange} />
+        <Input bg="transparent" placeholder="Zip Code" name="zipCode" value={shippingInfo.zipCode} onChange={handleInputChange} />
+      </VStack>
+
+      <FormControl id="card-container" marginBottom="4">
+        <label>Card Details</label>
+        <div id="card-input"></div>
+      </FormControl>
+
+      <Button colorScheme="blue" onClick={handlePayment}>Submit Payment</Button>
+    </Box>
+  </Flex>
   
-      <Box flex="1" bg="orange.600" p="4" borderRadius="md" boxShadow="sm">
-        <Heading size="md" mb="4">Payment & Shipping</Heading>
-        <VStack spacing={4} align="stretch" mb="4">
-          <Input bg="white" placeholder="Full Name" name="fullName" value={shippingInfo.fullName} onChange={handleInputChange} />
-          <Input bg="white" placeholder="Address Line 1" name="addressLine1" value={shippingInfo.addressLine1} onChange={handleInputChange} />
-          <Input bg="white" placeholder="Address Line 2" name="addressLine2" value={shippingInfo.addressLine2} onChange={handleInputChange} />
-          <Input bg="white" placeholder="City" name="city" value={shippingInfo.city} onChange={handleInputChange} />
-          <Input bg="white" placeholder="State" name="state" value={shippingInfo.state} onChange={handleInputChange} />
-          <Input bg="white" placeholder="Zip Code" name="zipCode" value={shippingInfo.zipCode} onChange={handleInputChange} />
-        </VStack>
-  
-   
-          <FormControl id="card-container" marginBottom="4">
-            <label>Card Details</label>
-            <div id="card-input"></div>
-          </FormControl>
-        
-        <Button colorScheme="blue" onClick={handlePayment}>Submit Payment</Button>
-      </Box>
-    </Flex>
-  );
+);
+
   
 };
 

@@ -10,7 +10,6 @@ const cors = require('cors');
 const { Client, Environment } = require('square');
 const User = require('../server/models/User');
 const Order = require('../server/models/Order');
-const [addOrder] = useMutation(ADD_ORDER);
 
 require('dotenv').config();
 

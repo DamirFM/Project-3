@@ -20,11 +20,13 @@ const customTheme = extendTheme({
     useSystemColorMode: false,
   },
   styles: {
-    global: {
+    global: (props) => ({
       body: {
-        transition: 'background-color 0.5s ease-out, color 0.5s ease-out',
+        bgGradient: props.colorMode === 'light'
+          ? 'linear(to-b, facebook.400, orange.500)' // Light mode gradient
+          : 'linear(to-b, black, orange.600)', // Dark mode gradient
       },
-    },
+    }),
   },
 });
 

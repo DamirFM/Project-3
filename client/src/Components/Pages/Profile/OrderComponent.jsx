@@ -8,7 +8,7 @@ const OrderComponent = ({ order }) => {
   const formattedDate = new Date(parseInt(order.purchaseDate)).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'
   });
-  const bgColor = useColorModeValue('gray.100', 'gray.900');
+  const bgColor = useColorModeValue('rgba(230,234,255, .3)', 'rgba(0.32,0.32,0.35, .3)');
 
   return (
     <VStack align="start" mb={4} bg={bgColor} p={4} borderRadius="lg">

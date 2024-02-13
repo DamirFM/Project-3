@@ -13,6 +13,7 @@ import {
   ModalCloseButton,
   Text,
   VStack,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { useCart } from '../Context/CartContext'; // Adjust the import path as necessary
 import { FaShoppingCart } from 'react-icons/fa';
@@ -22,6 +23,7 @@ const CartComponent = () => {
   const { cartItems, clearCart } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate(); 
+  const butBgColor = useColorModeValue('facebook.500', 'gray.800');
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
 
@@ -33,7 +35,7 @@ const CartComponent = () => {
 
   return (
     <>
-      <Button colorScheme="orange" position="relative" onClick={() => setIsCartOpen(true)}>
+      <Button bg={butBgColor} position="relative" onClick={() => setIsCartOpen(true)}>
         <Icon as={FaShoppingCart} />
         {cartItems.length > 0 && (
           <Badge colorScheme="blue.900" ml="1" position="absolute" top="-1" right="-1" borderRadius="full">
