@@ -10,6 +10,7 @@ const cors = require('cors');
 const { Client, Environment } = require('square');
 const User = require('../server/models/User');
 const Order = require('../server/models/Order');
+const [addOrder] = useMutation(ADD_ORDER);
 
 require('dotenv').config();
 
@@ -136,16 +137,16 @@ app.post('/api/orders', async (req, res) => {
     return res.status(400).json({ message: 'Missing or inconsistent required fields.' });
   }
 
-  const productDetails = products.map((productId, index) => ({
-    productId,
-    name: productName[index],
-    price: productPrice[index],
-  }));
+  // const productDetails = products.map((productId, index) => ({
+  //   productId,
+  //   name: productName[index],
+  //   price: productPrice[index],
+  // }));
 
   try {
     const newOrder = new Order({
       user: userId,
-      products: productDetails,
+      products: products,
     });
     const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
@@ -169,51 +170,7 @@ app.post('/api/orders', async (req, res) => {
     }
   });
 
-  // POST route for creating a new order
-app.post('/api/orders', async (req, res) => {
-  const { userId, productIds } = req.body; // Assuming productIds is an array of product IDs
-
-  // Check for missing fields
-  if (!userId || !productIds || productIds.length === 0) {
-    return res.status(400).json({ message: 'Missing required fields: userId and products' });
-  }
-
-  try {
-    // Optional: Verify the user exists
-    const userExists = await User.findById(userId);
-    if (!userExists) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Optional: Verify each product exists
-    for (const productId of productIds) {
-      const productExists = await Product.findById(productId);
-      if (!productExists) {
-        return res.status(404).json({ message: `Product not found: ${productId}` });
-      }
-    }
-
-    // Create a new order
-    const newOrder = new Order({
-      user: userId,
-      products: productIds,
-      purchaseDate: Date.now() // This is optional if your schema defaults to Date.now()
-    });
-
-    // Save the order to the database
-    const order = await newOrder.save();
-
-    // Update user's orders (optional, depends on your schema design)
-    await User.findByIdAndUpdate(userId, { $push: { orders: order._id } });
-
-    // Respond with the newly created order
-    res.status(201).json(order);
-  } catch (error) {
-    console.error('Error creating order:', error);
-    res.status(500).json({ message: 'Error creating order', error: error.message });
-  }
-});
-
+  
 
   // Serve up static assets
   app.use('/images', express.static(path.join(__dirname, '../client/public/images')));
