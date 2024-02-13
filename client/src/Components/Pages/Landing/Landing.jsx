@@ -19,8 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { LOGIN_USER, ADD_USER } from '../../../utils/mutations';
 import { useMutation } from '@apollo/client';
-import customTheme from '../../../Theme/Theme';
-
+// import customTheme from '../../../Theme/Theme';
 function Landing() {
   const bgColor = useColorModeValue('orange.100', 'gray.900');
   const textColor = useColorModeValue('gray.800', 'gray.50');
@@ -85,7 +84,7 @@ function Landing() {
         <Flex flex={1}>
           <Image
             borderRadius="lg"
-            src='public/images/vulcan.jpg'
+            src='/images/vulcan.jpg'
             alt="Splash Image"
             objectFit="cover"
           />
