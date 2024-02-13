@@ -84,7 +84,7 @@ function Landing() {
         <Flex flex={1}>
           <Image
             borderRadius="lg"
-            src='/images/vulcan.jpg'
+            src='https://i.imgur.com/NXi59lo.jpeg'
             alt="Splash Image"
             objectFit="cover"
           />
