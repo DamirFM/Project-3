@@ -7,11 +7,15 @@ import { CartProvider } from './Components/Context/CartContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
   <>
+
     <ChakraProvider theme={customTheme}>
     <CartProvider>
         <App />
       </CartProvider>
     </ChakraProvider>
+
   </>
+
 );

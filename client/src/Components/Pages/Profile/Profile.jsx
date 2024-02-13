@@ -15,19 +15,18 @@ const ProfilePage = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const user = data?.user || { orders: [] };
-
+console.log(user);
   return (
     <Flex direction="column" align="center" p={5}>
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg" mb={5}>
         <Heading size="lg" fontSize="6xl" color="orange.500" fontFamily="'Protest Revolution', sans-serif" mb={2}>{user.firstName}</Heading>
         <Text><strong>Email:</strong> {user.email}</Text>
       </Box>
-
       <Box w="full" bg={boxBgColor} p={5} borderRadius="lg">
-        <Heading size="lg" mb={2}>Orders</Heading>
-        {user.orders.map((order) => (
+        {/* Assuming you have a heading for orders */}
+        {user.orders && user.orders.length > 0 ? user.orders.map((order) => (
           <OrderComponent key={order._id} order={order} />
-        ))}
+        )) : 'No recent purchases found.'}
       </Box>
     </Flex>
   );

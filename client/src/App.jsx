@@ -17,6 +17,7 @@ import Landing from "./Components/Pages/Landing/Landing"
 import Profile from "./Components/Pages/Profile/Profile"
 import Store from "./Components/Pages/Store/Store"
 import Header from "./Components/Header/Header"
+import Footer from './Components/Footer/Footer';
 import PaymentPage from './Components/Pages/Store/PaymentPage';
 
 
@@ -63,6 +64,7 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} />
         {/* Redirect all other paths to Landing or a 404 Not Found component */}
       </Routes>
+      <Footer />
     </Router>
     </ApolloProvider>
     </>
