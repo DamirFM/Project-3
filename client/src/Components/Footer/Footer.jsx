@@ -1,20 +1,27 @@
 import React from 'react';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Container, useColorModeValue, Link, IconButton, Text } from '@chakra-ui/react';
 import GitHubButton from 'react-github-btn';
+import { FaGithub } from 'react-icons/fa';
 
 function Footer() {
+  const bgColor = useColorModeValue('orange.500', 'orange.600');
+  const textColor = useColorModeValue('gray.50', 'gray.100');
   return (
-    <Box as="footer" textAlign="center" bg="gray.800" p={4} color="gray.100">
-      <Flex justifyContent="center" alignItems="center">
-        <Box fontSize="lg"> Made by Damir, Anthony, and Wesley | </Box>
-        <GitHubButton 
-          href="https://github.com/DamirFM/Project-3" 
-          data-color-scheme="no-preference: dark_high_contrast; light: dark_high_contrast; dark: dark_dimmed;" 
-          data-size="large" 
-          aria-label="Follow @buttons on GitHub">
-          GitHub Repo
-        </GitHubButton>
-      </Flex>
+    <Box bg={bgColor} color={textColor}  py={5}>
+      <Container maxWidth="container.xl" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+        <Text fontSize="lg">Made by Damir, Anthony, and Wesley</Text>
+        <Link href="https://github.com/DamirFM/Project-3" isExternal>
+          <IconButton
+            aria-label="GitHub link"
+            icon={<FaGithub />}
+            size="lg"
+            colorScheme="blue"
+            variant="ghost"
+            mt={2}
+          />
+        </Link>
+        {/* Include any additional footer information here */}
+      </Container>
     </Box>
   );
 }

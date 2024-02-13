@@ -23,10 +23,15 @@ const Store = () => {
   const inputColor = useColorModeValue('gray.50', 'gray.600');
   const drawerColor = useColorModeValue('gray.100', 'gray.800');
   const bgColor = useColorModeValue('gray.50', 'gray.900');
-  const titleColor = useColorModeValue('gray.900', 'orange.500');
-  const modalBgColor = useColorModeValue('gray.700', 'orange.500');
-  const modalInput = useColorModeValue('gray.100', 'gray.700');
-  const modalTitle = useColorModeValue('gray.100', 'gray.800')
+  const titleColor = useColorModeValue('orange.500', 'orange.500');
+  const modalBgColor = useColorModeValue('rgba(230,234,255, .7)', 'orange.800');
+  const modalInput = useColorModeValue('gray.100', 'gray.500');
+  const modalText = useColorModeValue('gray.900', 'gray.100');
+  const modalTitle = useColorModeValue('gray.900', 'gray.100')
+  const bgGradient = useColorModeValue(
+    'linear(to-b, facebook.400, orange.500)', 
+    'linear(to-b, black, orange.600)' 
+  )
 
   const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
   const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
@@ -75,23 +80,23 @@ const Store = () => {
   };
 
   return (
-    <Flex direction="column" align="center" bg={bgColor}>
+    <Flex direction="column" align="center" bgGradient={bgGradient}>
       <Box p="4" alignSelf="flex-start">
         <Button onClick={onDrawerOpen}>Categories</Button>
         <Drawer placement="left" onClose={onDrawerClose} isOpen={isDrawerOpen}>
-          <DrawerOverlay sx={{ backgroundColor: drawerColor }} />
-          <DrawerContent>
+          <DrawerOverlay sx={{ backgroundColor: bgGradient }} />
+          <DrawerContent bg="gray.600" color="white" >
             <DrawerCloseButton />
-            <DrawerHeader>Categories</DrawerHeader>
+            <DrawerHeader fontFamily="'Protest Revolution', sans-serif" fontSize="3xl" color="orange.500" textShadow='2px 2px #ff0000'>Categories</DrawerHeader>
             <DrawerBody>
               <VStack align="start">
                 {categories.map((category) => (
-                  <Button key={category._id} variant="ghost"
+                  <Button key={category._id} variant="ghost" color="white" fontFamily="'Roboto Condensed', sans-serif" fontSize="2xl"
                     onClick={() => { setCurrentCategoryId(category._id); onDrawerClose(); }}>
                     {category.name}
                   </Button>
                 ))}
-                <Button variant="ghost" onClick={() => { setCurrentCategoryId(null); onDrawerClose(); }}>Show All</Button>
+                <Button variant="ghost" color="white" fontFamily="'Roboto Condensed', sans-serif" fontSize="2xl" onClick={() => { setCurrentCategoryId(null); onDrawerClose(); }}>Show All</Button>
               </VStack>
             </DrawerBody>
           </DrawerContent>
@@ -125,7 +130,7 @@ const Store = () => {
             <ModalCloseButton />
             <ModalBody>
               <Image src={selectedProduct.image} alt={selectedProduct.name} maxW="100%" maxH="400px" objectFit="contain" />
-              <Text mb={4} color={modalTitle}>{selectedProduct.description}</Text>
+              <Text mb={4} color={modalText}>{selectedProduct.description}</Text>
               <NumberInput bg={modalInput} defaultValue={1} min={1} onChange={(valueString) => setQuantity(parseInt(valueString))}>
                 <NumberInputField />
                 <NumberInputStepper>

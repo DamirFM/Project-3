@@ -18,8 +18,9 @@ import { FaShoppingCart } from 'react-icons/fa';
 import CartComponent from '../Cart/CartComponent';
 
 function Header() {
-  const bgColor = useColorModeValue('gray.800', 'orange.600');
+  const bgColor = useColorModeValue('facebook.400', 'black');
   const textColor = useColorModeValue('gray.50', 'gray.100');
+  const butBgColor = useColorModeValue('facebook.500', 'gray.800');
   const { cartItems } = useCart();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,41 +32,41 @@ function Header() {
   };
 
   return (
-    <Box maxW="1440px" mx="auto" width="100%" bg={bgColor} px={5}>
+    <Box  mx="auto" width="100%" bg={bgColor} px={5}>
       <Flex as="nav" h={16} alignItems={'center'} justifyContent={'space-between'}>
         {/* Wrap links in a Box to apply font size globally */}
-        <Box fontSize="lg">
+        <Box fontSize="3xl">
           <Stack direction={'row'} spacing={4} align={'center'}>
             <ChakraLink
               as={Link}
               to="/"
               color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+              fontFamily="'Protest Revolution', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
               Home
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/home"
               color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+              fontFamily="'Protest Revolution', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
               Featured
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/about"
               color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+              fontFamily="'Protest Revolution', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
               About
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/payment"
               color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+              fontFamily="'Protest Revolution', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
               Checkout
             </ChakraLink>
             {isLoggedIn && ( // Render "Profile" link only if logged in
@@ -73,8 +74,8 @@ function Header() {
                 as={Link}
                 to="/profile"
                 color={textColor}
-                fontFamily="'Oswald', sans-serif"
-                _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+                fontFamily="'Protest Revolution', sans-serif"
+                _hover={{ textDecoration: 'none', color: 'orange' }}>
                 Profile
               </ChakraLink>
             )}
@@ -82,8 +83,8 @@ function Header() {
               as={Link}
               to="/store"
               color={textColor}
-              fontFamily="'Oswald', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'blue.200' }}>
+              fontFamily="'Protest Revolution', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
               Store
             </ChakraLink>
           </Stack>
@@ -91,12 +92,12 @@ function Header() {
         <Stack direction="row" spacing={4} align="center">
           {isLoggedIn && (
             <>
-              <Button onClick={handleLogout} colorScheme="orange">
+              <Button onClick={handleLogout} bg={butBgColor}>
                 Logout
               </Button>
             </>
           )}
-          <CartComponent isOpen={isOpen} onClose={onClose} />
+          <CartComponent isOpen={isOpen} onClose={onClose}  />
           <ColorModeSwitcher justifySelf="flex-end" />
         </Stack>
       </Flex>

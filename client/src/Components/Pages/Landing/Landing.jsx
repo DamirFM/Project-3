@@ -9,6 +9,7 @@ import {
   VStack,
   Input,
   useColorModeValue,
+  useColorMode,
   Tabs,
   TabList,
   TabPanels,
@@ -18,12 +19,18 @@ import {
 } from '@chakra-ui/react';
 import { LOGIN_USER, ADD_USER } from '../../../utils/mutations';
 import { useMutation } from '@apollo/client';
+import customTheme from '../../../Theme/Theme';
 
 function Landing() {
-  const bgColor = useColorModeValue('gray.100', 'gray.900');
+  const bgColor = useColorModeValue('orange.100', 'gray.900');
   const textColor = useColorModeValue('gray.800', 'gray.50');
-  const inputColor = useColorModeValue('gray.50', 'gray.600');
-  const titleColor = useColorModeValue('orange.500', 'orange.400');
+  const inputColor = useColorModeValue('gray.500', 'gray.600');
+  const titleColor = useColorModeValue('orange.400', 'orange.400');
+  const loginColor = useColorModeValue('transparent', 'transparent');
+  const bgGradient = useColorModeValue(
+    'linear(to-b, facebook.400, orange.500)', 
+    'linear(to-b, black, orange.600)' 
+  );
 
   const [userFormData, setUserFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
   const [showAlert, setShowAlert] = useState(false);
@@ -66,13 +73,13 @@ function Landing() {
   };
 
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center" bg={bgColor}>
+    <Flex height="100vh" alignItems="center" justifyContent="center" bgGradient={bgGradient}>
       <Flex
         direction={{ base: 'column', md: 'row' }}
         width="full"
         maxW="1440px"
         px={4}
-        bg={bgColor}
+        bg="transparent"
         margin="auto"
       >
         <Flex flex={1}>
@@ -84,11 +91,11 @@ function Landing() {
           />
         </Flex>
         <Flex flex={1} alignItems="start" flexDirection="column" justifyContent="center" p={5} minH="600px">
-          <Heading as="h1" size="xl" fontSize="6xl" color={titleColor} mb={4} fontFamily="'Protest Revolution', sans-serif">
+          <Heading as="h1" size="xl" fontSize="6xl" color={titleColor} textShadow='2px 2px #ff0000' mb={4} fontFamily="'Protest Revolution', sans-serif">
             Welcome to Vulcan's <br/>Computer Emporium
           </Heading>
           {isLoggedIn && (
-            <Alert status="success" borderRadius="md" mt={4}>
+            <Alert bg={loginColor} borderRadius="md" mt={4}>
               You are logged in.
             </Alert>
           )}
