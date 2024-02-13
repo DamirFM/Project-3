@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { LOGIN_USER, ADD_USER } from '../../../utils/mutations';
 import { useMutation } from '@apollo/client';
-import customTheme from '../../../Theme/Theme';
+// import customTheme from '../../../Theme/Theme';
 
 function Landing() {
   const bgColor = useColorModeValue('orange.100', 'gray.900');
