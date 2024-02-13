@@ -5,6 +5,15 @@ import {
 import { useCart } from '../../../Context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../../../utils/auth';
+import { useMutation, gql } from '@apollo/client';
+
+const ADD_ORDER = gql`
+  mutation addOrder($products: [ID]!) {
+    addOrder(products: $products) {
+      _id
+    }
+  }
+`;
 
 const PaymentForm = () => {
   const { cartItems, clearCart } = useCart();
@@ -13,6 +22,7 @@ const PaymentForm = () => {
   const navigate = useNavigate();
   const paymentFormInitialized = useRef(false);
   const toast = useToast();
+  const [addOrder] = useMutation(ADD_ORDER);
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const [shippingInfo, setShippingInfo] = useState({
     fullName: '',
@@ -25,7 +35,7 @@ const PaymentForm = () => {
 
   useEffect(() => {
     if (paymentFormInitialized.current) {
-      // Payment form already initialized, prevent re-initialization
+      
       return;
     }
 
@@ -48,7 +58,7 @@ const PaymentForm = () => {
         await cardInstance.attach('#card-input');
         setCard(cardInstance);
         setIsCardReady(true);
-        paymentFormInitialized.current = true; // Mark as initialized
+        paymentFormInitialized.current = true; 
       } catch (error) {
         console.error("Failed to initialize Square card input:", error);
         toast({
@@ -105,59 +115,54 @@ const PaymentForm = () => {
             products: productIds, productName, productPrice,
           });
 
-        const orderResponse = await fetch('http://localhost:3001/api/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              // Include the auth token in the request
-              'Authorization': `Bearer ${AuthService.getToken()}`
-            },
-            body: JSON.stringify({
-              userId,
-              products: productIds, productName, productPrice
-            
-          }),
-        });
-        if (orderResponse.ok) {
-          clearCart();
-          toast({
-            title: 'Payment Successful',
-            description: 'Your payment was processed successfully.',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-          });
-          navigate('/profile'); 
-        } else {
-          // Handle order creation failure
-          toast({
-            title: 'Order Creation Failed',
-            description: 'Failed to create order after payment.',
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-          });
-        }
-      } else {
-        toast({
-          title: 'Payment Failed',
-          description: `Failed to process payment: ${result.errors[0].message}`,
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      console.error("Payment error:", error);
-      toast({
-        title: 'Payment Error',
-        description: 'An unexpected error occurred while processing your payment.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-  };
+const response = await addOrder({
+  variables: {
+    products: productIds, 
+  },
+});
+
+if (response.data) {
+  clearCart();
+  toast({
+    title: 'Payment and Order Successful',
+    description: 'Your payment was processed and order was placed successfully.',
+    status: 'success',
+    duration: 9000,
+    isClosable: true,
+  });
+  navigate('/profile');
+} else {
+  // Handle order creation failure
+  toast({
+    title: 'Order Creation Failed',
+    description: 'Failed to create order after payment.',
+    status: 'error',
+    duration: 9000,
+    isClosable: true,
+  });
+}
+} else {
+// Handle payment failure
+toast({
+  title: 'Payment Failed',
+  description: `Failed to process payment: ${result.errors[0].message}`,
+  status: 'error',
+  duration: 9000,
+  isClosable: true,
+});
+}
+} catch (error) {
+console.error("Order and Payment error:", error);
+toast({
+title: 'Order and Payment Error',
+description: 'An unexpected error occurred while processing your payment and order.',
+status: 'error',
+duration: 9000,
+isClosable: true,
+});
+}
+};
+
 
 
   return (

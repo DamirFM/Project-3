@@ -17,19 +17,11 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_ORDER = gql`
-  mutation AddOrder($products: [ID] ) {
-    addOrder(products: $products) {
-      _id
-      purchaseDate
-      products {
-        name
-        description
-        image
-        quantity
-        price
-      }
-    }
+mutation Mutation($products: [ID]) {
+  addOrder(products: $products) {
+    _id
   }
+}
 `;
 
 
