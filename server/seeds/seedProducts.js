@@ -3,9 +3,21 @@ const Product = require('../models/Product');
 const products = require('./productData'); 
 
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mern-shopping', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB Connection Error:', err));
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mern-shopping', { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.error('MongoDB Connection Error:', err));
+
+  // Connect to MongoDB
+mongoose.connect('mongodb://0.0.0.0:27017/mern-shopping', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.once('connected', async () => {
+  // MongoDB connection is open, start seeding data
+  seedProducts();
+});
+
 
   const seedProducts = async () => {
     try {
