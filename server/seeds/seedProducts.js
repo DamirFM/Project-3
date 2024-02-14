@@ -8,7 +8,7 @@ const products = require('./productData');
 //   .catch(err => console.error('MongoDB Connection Error:', err));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://0.0.0.0:27017/mern-shopping', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mern-shopping', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
