@@ -14,17 +14,23 @@ const ProductCard = ({ name, description, price, imageUrl }) => {
   const textColor = useColorModeValue('gray.800', 'gray.100');
 
   return (
-    <Box p={5} shadow="md" borderWidth="0px" borderRadius="lg" bg={bgColor} textAlign="center">
-    {/* Image Container */}
-    <Box display="flex" justifyContent="center">
-      <Image borderRadius="md" src={imageUrl} alt={name} maxWidth="100%" maxHeight="100%" objectFit="cover" />
+    <Box p={{ base: 4, md: 5 }} shadow="md" borderWidth="0px" borderRadius="lg" bg={bgColor} textAlign="center">
+      {/* Image Container */}
+      <Box display="flex" justifyContent="center" mb={{ base: 2, md: 4 }}>
+        <Image borderRadius="md" src={imageUrl} alt={name} maxWidth="100%" maxHeight="100%" objectFit="cover" />
+      </Box>
+      <VStack align="center" mt={2} mb={{ base: 2, md: 4 }}>
+        <Heading as="h3" size="md" color={textColor}>
+          {name}
+        </Heading>
+        <Text color={textColor} fontSize={{ base: 'sm', md: 'md' }}>
+          {description}
+        </Text>
+        <Text fontWeight="bold" color={textColor}>
+          ${price}
+        </Text>
+      </VStack>
     </Box>
-    <VStack align="center" mt={4}>
-      <Heading as="h3" size="md" color={textColor}>{name}</Heading>
-      <Text color={textColor}>{description}</Text>
-      <Text fontWeight="bold" color={textColor}>${price}</Text>
-    </VStack>
-  </Box>
   );
 };
 

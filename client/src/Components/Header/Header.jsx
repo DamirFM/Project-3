@@ -9,12 +9,13 @@ import {
   Icon,
   Text,
   Link as ChakraLink,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 import ColorModeSwitcher from '../Header/ColorModeSwitcher';
 import AuthService from '../../utils/auth';
 import { useCart } from '../Context/CartContext';
-import { FaShoppingCart } from 'react-icons/fa';
 import CartComponent from '../Cart/CartComponent';
 
 function Header() {
@@ -31,62 +32,66 @@ function Header() {
     AuthService.logout(); // Log out the user
   };
 
+  const linkFontSize = useBreakpointValue({ base: 'md', md: 'xl' });
+
   return (
-    <Box  mx="auto" width="100%" bg={bgColor} px={5}>
+    <Box mx="auto" width="100%" bg={bgColor} px={5}>
       <Flex as="nav" h={16} alignItems={'center'} justifyContent={'space-between'}>
         {/* Wrap links in a Box to apply font size globally */}
-        <Box fontSize="3xl">
+        <Box fontSize={linkFontSize}>
           <Stack direction={'row'} spacing={4} align={'center'}>
             <ChakraLink
               as={Link}
               to="/"
               color={textColor}
-              fontFamily="'Protest Revolution', sans-serif"
+              fontFamily="'Metamorphous', sans-serif"
               _hover={{ textDecoration: 'none', color: 'orange' }}>
               Home
             </ChakraLink>
             <ChakraLink
               as={Link}
+              to="/store"
+              color={textColor}
+              fontFamily="'Metamorphous', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
+              Store
+            </ChakraLink>
+            <ChakraLink
+              as={Link}
               to="/home"
               color={textColor}
-              fontFamily="'Protest Revolution', sans-serif"
+              fontFamily="'Metamorphous', sans-serif"
               _hover={{ textDecoration: 'none', color: 'orange' }}>
               Featured
+            </ChakraLink>
+
+            <ChakraLink
+              as={Link}
+              to="/payment"
+              color={textColor}
+              fontFamily="'Metamorphous', sans-serif"
+              _hover={{ textDecoration: 'none', color: 'orange' }}>
+              Checkout
             </ChakraLink>
             <ChakraLink
               as={Link}
               to="/about"
               color={textColor}
-              fontFamily="'Protest Revolution', sans-serif"
+              fontFamily="'Metamorphous', sans-serif"
               _hover={{ textDecoration: 'none', color: 'orange' }}>
               About
-            </ChakraLink>
-            <ChakraLink
-              as={Link}
-              to="/payment"
-              color={textColor}
-              fontFamily="'Protest Revolution', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'orange' }}>
-              Checkout
             </ChakraLink>
             {isLoggedIn && ( // Render "Profile" link only if logged in
               <ChakraLink
                 as={Link}
                 to="/profile"
                 color={textColor}
-                fontFamily="'Protest Revolution', sans-serif"
+                fontFamily="'Metamorphous', sans-serif"
                 _hover={{ textDecoration: 'none', color: 'orange' }}>
                 Profile
               </ChakraLink>
             )}
-            <ChakraLink
-              as={Link}
-              to="/store"
-              color={textColor}
-              fontFamily="'Protest Revolution', sans-serif"
-              _hover={{ textDecoration: 'none', color: 'orange' }}>
-              Store
-            </ChakraLink>
+
           </Stack>
         </Box>
         <Stack direction="row" spacing={4} align="center">
@@ -97,7 +102,11 @@ function Header() {
               </Button>
             </>
           )}
-          <CartComponent isOpen={isOpen} onClose={onClose}  />
+          <Button onClick={onOpen} bg={butBgColor}>
+            <Icon as={FaShoppingCart} />
+            <Text ml={2}>{cartItems.length}</Text>
+          </Button>
+          <CartComponent isOpen={isOpen} onClose={onClose} />
           <ColorModeSwitcher justifySelf="flex-end" />
         </Stack>
       </Flex>

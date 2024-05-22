@@ -10,7 +10,12 @@ const ColorModeSwitcher = () => {
 
   return (
     <FormControl display="flex" alignItems="center">
-      <FormLabel htmlFor="color-mode-switch" mb="0" color={textColor}>
+      <FormLabel 
+      htmlFor="color-mode-switch" 
+      mb="0" 
+      color={textColor}
+      fontFamily="'Metamorphous', sans-serif"
+      >
         {isDark ? 'Hades Mode' : 'Olympus Mode'}
       </FormLabel>
       <Switch id="color-mode-switch" isChecked={isDark} onChange={toggleColorMode} />

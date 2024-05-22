@@ -8,15 +8,21 @@ const StoreCard = ({ name, description, image, price }) => {
   const titleColor = useColorModeValue('gray.900', 'orange.400');
 
   return (
-    <Box p={5} shadow="md" borderWidth="0px" borderRadius="lg" bg={bgColor} textAlign="center">
+    <Box p={{ base: 3, md: 5 }} shadow="md" borderWidth="0px" borderRadius="lg" bg={bgColor} textAlign="center">
       {/* AspectRatio Container */}
-      <AspectRatio ratio={8/ 6} width="327px" height="auto">
+      <AspectRatio ratio={4/ 3} maxW="100%" borderRadius="md">
         <Image src={image} alt={name} objectFit="cover" borderRadius="md" />
       </AspectRatio>
-      <VStack align="center" mt={4} >
-        <Text fontWeight="bold" color={titleColor} fontSize="lg">{name}</Text>
-        <Text fontSize="sm" noOfLines={3} color={textColor}>{description}</Text>
-        <Text fontWeight="bold" color={textColor}>${price}</Text>
+      <VStack align="center" mt={4}>
+        <Text fontWeight="bold" color={titleColor} fontSize={{ base: 'md', md: 'lg' }}>
+          {name}
+        </Text>
+        <Text fontSize={{ base: 'sm', md: 'md' }} noOfLines={{ base: 2, md: 3 }} color={textColor}>
+          {description}
+        </Text>
+        <Text fontWeight="bold" color={textColor}>
+          ${price}
+        </Text>
       </VStack>
     </Box>
   );

@@ -9,7 +9,7 @@ function Footer() {
   return (
     <Box bg={bgColor} color={textColor}  py={5}>
       <Container maxWidth="container.xl" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-        <Text fontSize="lg">Made by Damir, Anthony, and Wesley</Text>
+      
         <Link href="https://github.com/DamirFM/Project-3" isExternal>
           <IconButton
             aria-label="GitHub link"
