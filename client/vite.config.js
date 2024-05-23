@@ -14,8 +14,6 @@ export default defineConfig({
         changeOrigin: true
       }
     }
-  },
-  build: {
-    outDir: 'public' // Specify the output directory here
   }
+  
 });
