@@ -81,84 +81,84 @@ const products = [
     price: 1250.00,
     category: "65c26d9303c196854fd60ec0"
   },{
-    "name": "Apple MacBook Pro",
-    "price": 1299.99,
-    "image": "https://m.media-amazon.com/images/I/61o62q+1GUL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 59,
-    "description": "The Apple MacBook Pro is a powerful and sleek laptop known for its premium build quality and excellent performance. It is favored by professionals and creative users for its reliability and advanced features."
+    name: "Apple MacBook Pro",
+    price: 1299.99,
+    image: "https://m.media-amazon.com/images/I/61o62q+1GUL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 59,
+    description: "The Apple MacBook Pro is a powerful and sleek laptop known for its premium build quality and excellent performance. It is favored by professionals and creative users for its reliability and advanced features."
   },
   {
-    "name": "Dell XPS 13",
-    "price": 1199.99,
-    "image": "https://m.media-amazon.com/images/I/61-P1Q2NzvL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 63,
-    "description": "The Dell XPS 13 is a highly regarded ultrabook known for its compact design, stunning display, and powerful performance. It's an ideal choice for professionals and students who prioritize portability without compromising on performance."
+    name: "Dell XPS 13",
+    price: 1199.99,
+    image: "https://m.media-amazon.com/images/I/61-P1Q2NzvL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 63,
+    description: "The Dell XPS 13 is a highly regarded ultrabook known for its compact design, stunning display, and powerful performance. It's an ideal choice for professionals and students who prioritize portability without compromising on performance."
   },
   {
-    "name": "HP Spectre x360",
-    "price": 999.99,
-    "image": "https://m.media-amazon.com/images/I/71MwMwgyh-L._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 58,
-    "description": "The HP Spectre x360 is a versatile convertible laptop offering a blend of style, performance, and flexibility. With its 360-degree hinge design, it can be used in various modes to suit different tasks, making it a great choice for productivity and entertainment."
+    name: "HP Spectre x360",
+    price: 999.99,
+    image: "https://m.media-amazon.com/images/I/71MwMwgyh-L._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 58,
+    description: "The HP Spectre x360 is a versatile convertible laptop offering a blend of style, performance, and flexibility. With its 360-degree hinge design, it can be used in various modes to suit different tasks, making it a great choice for productivity and entertainment."
   },
   {
-    "name": "Microsoft Surface Laptop 4",
-    "price": 1299.99,
-    "image": "https://m.media-amazon.com/images/I/71qKfFqgEiL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 64,
-    "description": "The Microsoft Surface Laptop 4 is a premium ultrabook known for its elegant design, high-resolution display, and smooth performance. It's well-suited for professionals and students seeking a stylish yet productive computing experience."
+    name: "Microsoft Surface Laptop 4",
+    price: 1299.99,
+    image: "https://m.media-amazon.com/images/I/71qKfFqgEiL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 64,
+    description: "The Microsoft Surface Laptop 4 is a premium ultrabook known for its elegant design, high-resolution display, and smooth performance. It's well-suited for professionals and students seeking a stylish yet productive computing experience."
   },
   {
-    "name": "Lenovo ThinkPad X1 Carbon",
-    "price": 1499.99,
-    "image": "https://m.media-amazon.com/images/I/51mSFH3B8aL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 61,
-    "description": "The Lenovo ThinkPad X1 Carbon is a premium business laptop renowned for its durability, lightweight design, and long battery life. It offers robust performance and security features, making it an ideal choice for professionals on the go."
+    name: "Lenovo ThinkPad X1 Carbon",
+    price: 1499.99,
+    image: "https://m.media-amazon.com/images/I/51mSFH3B8aL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 61,
+    description: "The Lenovo ThinkPad X1 Carbon is a premium business laptop renowned for its durability, lightweight design, and long battery life. It offers robust performance and security features, making it an ideal choice for professionals on the go."
   },
   {
-    "name": "Asus ROG Zephyrus G14",
-    "price": 1199.99,
-    "image": "https://m.media-amazon.com/images/I/8108MHPUYyL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 63,
-    "description": "The Asus ROG Zephyrus G14 is a high-performance gaming laptop packed with powerful hardware in a compact and stylish design. It offers excellent gaming performance and portability, making it a top choice for gaming enthusiasts."
+    name: "Asus ROG Zephyrus G14",
+    price: 1199.99,
+    image: "https://m.media-amazon.com/images/I/8108MHPUYyL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 63,
+    description: "The Asus ROG Zephyrus G14 is a high-performance gaming laptop packed with powerful hardware in a compact and stylish design. It offers excellent gaming performance and portability, making it a top choice for gaming enthusiasts."
   },
   {
-    "name": "Acer Swift 3",
-    "price": 699.99,
-    "image": "https://m.media-amazon.com/images/I/61EI3qayjHL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 57,
-    "description": "The Acer Swift 3 is a budget-friendly ultrabook offering a balance of performance, portability, and affordability. It's ideal for students and professionals looking for a reliable laptop without breaking the bank."
+    name: "Acer Swift 3",
+    price: 699.99,
+    image: "https://m.media-amazon.com/images/I/61EI3qayjHL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 57,
+    description: "The Acer Swift 3 is a budget-friendly ultrabook offering a balance of performance, portability, and affordability. It's ideal for students and professionals looking for a reliable laptop without breaking the bank."
   },
   {
-    "name": "Razer Blade 15",
-    "price": 1799.99,
-    "image": "https://m.media-amazon.com/images/I/81e73VekkyL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 62,
-    "description": "The Razer Blade 15 is a premium gaming laptop known for its sleek design, powerful performance, and vibrant display. It's favored by gamers and content creators for its high-end specifications and immersive gaming experience."
+    name: "Razer Blade 15",
+    price: 1799.99,
+    image: "https://m.media-amazon.com/images/I/81e73VekkyL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 62,
+    description: "The Razer Blade 15 is a premium gaming laptop known for its sleek design, powerful performance, and vibrant display. It's favored by gamers and content creators for its high-end specifications and immersive gaming experience."
   },
   {
-    "name": "Huawei MateBook X Pro",
-    "price": 1399.99,
-    "image": "https://m.media-amazon.com/images/I/61LmSYoaOAL._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 59,
-    "description": "The Huawei MateBook X Pro is a stylish and high-performance ultrabook featuring a slim design, sharp display, and robust hardware. It's suitable for professionals and students seeking a premium computing experience."
+    name: "Huawei MateBook X Pro",
+    price: 1399.99,
+    image: "https://m.media-amazon.com/images/I/61LmSYoaOAL._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 59,
+    description: "The Huawei MateBook X Pro is a stylish and high-performance ultrabook featuring a slim design, sharp display, and robust hardware. It's suitable for professionals and students seeking a premium computing experience."
   },
   {
-    "name": "MSI GS66 Stealth",
-    "price": 1799.99,
-    "image": "https://m.media-amazon.com/images/I/71ZygtZ0V9L._AC_UL320_.jpg",
-    "category": "65c26d9303c196854fd60ec0",
-    "quantity": 60,
-    "description": "The MSI GS66 Stealth is a powerful gaming laptop known for its sleek design, high-performance components, and advanced gaming features. It offers excellent gaming performance and portability, making it a top choice for serious gamers."
+    name: "MSI GS66 Stealth",
+    price: 1799.99,
+    image: "https://m.media-amazon.com/images/I/71ZygtZ0V9L._AC_UL320_.jpg",
+    category: "65c26d9303c196854fd60ec0",
+    quantity: 60,
+    description: "The MSI GS66 Stealth is a powerful gaming laptop known for its sleek design, high-performance components, and advanced gaming features. It offers excellent gaming performance and portability, making it a top choice for serious gamers."
   },
   //DESKTOPS
   {
