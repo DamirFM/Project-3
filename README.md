@@ -62,5 +62,5 @@ Start the server
 
 Link To Repo: https://github.com/DamirFM/Project-3
 
-Link to Deployed App: https://vulcans-computer-emporium.onrender.com
+Link to Deployed App: [https://vulcans-computer-emporium.onrender.com](https://vulcan-s-computer-emporium.onrender.com)
 
